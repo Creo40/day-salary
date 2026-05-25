@@ -8,435 +8,58 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#08080e;--card:#0e0e16;--surf:#16161f;--bord:#252530;
-  --gold:#e8b84b;--gold2:#c49a3c;--green:#2dd67a;--blue:#5b8def;
-  --red:#e84057;--txt:#eae6de;--txt2:#8a869a;--txt3:#3e3c4e;
-  --purple:#a080d0;--mono:'JetBrains Mono',Consolas,monospace;
-  --sans:'Noto Sans SC','Microsoft YaHei',sans-serif;
-  --sc:1;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{background:var(--bg);color:var(--txt);font-family:var(--sans);min-height:100vh;overflow:hidden}
-body{display:flex;align-items:center;justify-content:center}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 20%,rgba(232,184,75,0.03),transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(45,214,122,0.02),transparent 50%)}
-.scale-wrap{transform:scale(var(--sc));transform-origin:center center;width:420px}
-.card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,75,0.25),transparent)}
-.es{text-align:center;padding:48px 16px}
-.ei{width:64px;height:64px;border-radius:18px;margin:0 auto 16px;background:rgba(232,184,75,0.08);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:28px;font-weight:700;color:var(--gold)}
-.es h2{font-size:18px;font-weight:600;margin-bottom:6px}
-.es p{font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.5}
-.gbtn{font-family:var(--mono);font-size:13px;font-weight:600;padding:12px 32px;border:none;border-radius:10px;cursor:pointer;background:var(--gold);color:var(--bg)}
-.gbtn:active{transform:scale(.96)}
-.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.hdr-l{display:flex;align-items:center;gap:8px}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:500}
-.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.s-work{background:rgba(45,214,122,0.1);color:var(--green)}.s-work .dot{background:var(--green);box-shadow:0 0 6px var(--green)}
-.s-wait{background:rgba(91,141,239,0.1);color:var(--blue)}.s-wait .dot{background:var(--blue);animation:pl 2s ease infinite}
-.s-off{background:rgba(255,255,255,0.04);color:var(--txt2)}.s-off .dot{background:var(--txt2)}
-.s-lunch{background:rgba(232,184,75,0.1);color:var(--gold)}.s-lunch .dot{background:var(--gold);animation:pl 1.5s ease infinite}
-.s-rest{background:rgba(140,100,200,0.1);color:var(--purple)}.s-rest .dot{background:var(--purple)}
-@keyframes pl{0%,100%{opacity:1}50%{opacity:.4}}
-.wtag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
-.wtag.big{background:rgba(232,184,75,0.1);color:var(--gold)}
-.wtag.sm{background:rgba(91,141,239,0.1);color:var(--blue)}
-.sbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--bord);background:var(--surf);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px}
-.sbtn:hover{color:var(--txt)}
-.cs{text-align:center;margin-bottom:16px}
-.ck{font-family:var(--mono);font-size:46px;font-weight:700;letter-spacing:1px;line-height:1}
-.ck .c{opacity:.35}
-.ck .sc{font-size:26px;font-weight:300;color:var(--txt3)}
-.dt{font-size:12px;color:var(--txt2);margin-top:8px;letter-spacing:1px}
-.dv{height:1px;background:var(--bord);margin:0 0 16px}
-.ew{display:flex;gap:8px;margin-bottom:14px}
-.eb{flex:1;background:var(--surf);border-radius:12px;padding:14px 12px}
-.eb.p{background:linear-gradient(135deg,rgba(232,184,75,0.08),rgba(232,184,75,0.02))}
-.el{font-size:10px;color:var(--txt2);margin-bottom:6px;letter-spacing:.5px}
-.ev{font-family:var(--mono);font-weight:700;line-height:1}
-.ev.lg{font-size:24px;color:var(--gold);animation:gw 3s ease infinite}
-.ev.md{font-size:18px;color:var(--txt)}
-.ev .u{font-size:12px;font-weight:300;opacity:.5;margin-right:1px}
-@keyframes gw{0%,100%{text-shadow:0 0 18px rgba(232,184,75,0.1)}50%{text-shadow:0 0 30px rgba(232,184,75,0.25)}}
-.pw{margin-bottom:14px}
-.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.ph .lb{font-size:10px;color:var(--txt2)}
-.ph .pv{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--gold)}
-.pt{height:3px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden}
-.pf{height:100%;border-radius:2px;transition:width .5s;background:linear-gradient(90deg,rgba(232,184,75,0.35),var(--gold))}
-.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.ib{background:var(--surf);border-radius:8px;padding:10px 4px;text-align:center}
-.ib .v{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px}
-.ib .l{font-size:9px;color:var(--txt2)}
-.rm{text-align:center;padding:12px 0;font-size:13px;color:var(--txt2);display:none}
-.ft{text-align:center;margin-top:10px;font-size:10px;color:var(--txt3)}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);z-index:100;opacity:0;pointer-events:none;transition:opacity .25s}
-.ov.on{opacity:1;pointer-events:auto}
-.sh{position:fixed;bottom:0;left:0;right:0;max-height:90vh;background:var(--card);border-radius:18px 18px 0 0;z-index:101;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column}
-.sh.on{transform:translateY(0)}
-.shh{width:32px;height:3px;border-radius:2px;background:var(--txt3);margin:8px auto 0}
-.sht{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 10px}
-.sht h3{font-size:16px;font-weight:600}
-.xb{width:28px;height:28px;border-radius:6px;border:none;background:var(--surf);color:var(--txt2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-.xb:active{transform:scale(.9)}
-.shb{padding:0 20px 16px;overflow-y:auto;flex:1}
-.fs{margin-bottom:18px}
-.fst{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
-.fr{display:flex;gap:8px;margin-bottom:8px}
-.ff{flex:1}
-.ff label{display:block;font-size:11px;color:var(--txt2);margin-bottom:4px}
-.ff input{width:100%;background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:9px 12px;color:var(--txt);font-family:var(--mono);font-size:14px;outline:none}
-.ff input:focus{border-color:var(--gold)}
-.ff .px{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:14px;color:var(--txt2)}
-.iw{position:relative}.iw input{padding-left:26px}
-.og{display:flex;background:var(--surf);border-radius:8px;padding:2px;gap:2px}
-.op{flex:1;padding:8px;border:none;border-radius:6px;background:transparent;color:var(--txt2);font-size:12px;font-family:var(--sans);cursor:pointer;font-weight:500;transition:all .15s}
-.op.on{background:var(--gold);color:var(--bg);font-weight:600}
-.op:active{transform:scale(.96)}
-.sr{margin-top:8px;overflow:hidden;max-height:0;opacity:0;transition:all .25s}
-.sr.show{max-height:100px;opacity:1}
-.fhint{font-size:10px;color:var(--txt3);margin-top:6px;line-height:1.6}
-.sft{padding:10px 20px 24px;flex-shrink:0}
-.svb{width:100%;padding:12px;border:none;border-radius:10px;background:var(--gold);color:var(--bg);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}
-.svb:active{transform:scale(.98)}
-.toast{position:fixed;bottom:36px;left:50%;z-index:200;background:var(--green);color:var(--bg);padding:8px 24px;border-radius:20px;font-size:13px;font-weight:600;transform:translateX(-50%) translateY(60px);opacity:0;transition:all .3s;pointer-events:none}
-.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-/* Zoom row in settings */
-.zoom-row{display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:8px;padding:8px 12px}
-.zoom-btn{width:32px;height:32px;border-radius:8px;border:none;background:var(--card);color:var(--txt2);cursor:pointer;font-size:18px;font-weight:600;font-family:var(--mono);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.zoom-btn:hover{color:var(--txt);background:var(--bord)}
-.zoom-btn:active{transform:scale(.9)}
-.zoom-val{flex:1;text-align:center;font-family:var(--mono);font-size:14px;font-weight:600;color:var(--txt)}
-.zoom-reset{font-size:11px;color:var(--txt3);cursor:pointer;background:none;border:none;padding:4px 8px;border-radius:4px;font-family:var(--mono);flex-shrink:0}
-.zoom-reset:hover{color:var(--txt2);background:var(--card)}
+:root{--bg:#08080e;--card:#0e0e16;--surf:#16161f;--bord:#252530;--gold:#e8b84b;--gold2:#c49a3c;--green:#2dd67a;--blue:#5b8def;--txt:#eae6de;--txt2:#8a869a;--txt3:#3e3c4e;--purple:#a080d0;--mono:'JetBrains Mono',Consolas,monospace;--sans:'Noto Sans SC','Microsoft YaHei',sans-serif;--sc:1}*{margin:0;padding:0;box-sizing:border-box}html,body{background:var(--bg);color:var(--txt);font-family:var(--sans);min-height:100vh;overflow:hidden}body{display:flex;align-items:center;justify-content:center}body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 20%,rgba(232,184,75,0.03),transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(45,214,122,0.02),transparent 50%)}.sw{transform:scale(var(--sc));transform-origin:center center;width:420px}.card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden}.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,75,0.25),transparent)}.es{text-align:center;padding:48px 16px}.ei{width:64px;height:64px;border-radius:18px;margin:0 auto 16px;background:rgba(232,184,75,0.08);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:28px;font-weight:700;color:var(--gold)}.es h2{font-size:18px;font-weight:600;margin-bottom:6px}.es p{font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.5}.gbtn{font-family:var(--mono);font-size:13px;font-weight:600;padding:12px 32px;border:none;border-radius:10px;cursor:pointer;background:var(--gold);color:var(--bg)}.gbtn:active{transform:scale(.96)}.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.hdr-l{display:flex;align-items:center;gap:8px}.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:500}.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}.s-work{background:rgba(45,214,122,0.1);color:var(--green)}.s-work .dot{background:var(--green);box-shadow:0 0 6px var(--green)}.s-wait{background:rgba(91,141,239,0.1);color:var(--blue)}.s-wait .dot{background:var(--blue);animation:pl 2s ease infinite}.s-off{background:rgba(255,255,255,0.04);color:var(--txt2)}.s-off .dot{background:var(--txt2)}.s-lunch{background:rgba(232,184,75,0.1);color:var(--gold)}.s-lunch .dot{background:var(--gold);animation:pl 1.5s ease infinite}.s-rest{background:rgba(140,100,200,0.1);color:var(--purple)}.s-rest .dot{background:var(--purple)}@keyframes pl{0%,100%{opacity:1}50%{opacity:.4}}.wtag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}.wtag.big{background:rgba(232,184,75,0.1);color:var(--gold)}.wtag.sm{background:rgba(91,141,239,0.1);color:var(--blue)}.sbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--bord);background:var(--surf);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px}.sbtn:hover{color:var(--txt)}.cs{text-align:center;margin-bottom:16px}.ck{font-family:var(--mono);font-size:46px;font-weight:700;letter-spacing:1px;line-height:1}.ck .c{opacity:.35}.ck .sc{font-size:26px;font-weight:300;color:var(--txt3)}.dt{font-size:12px;color:var(--txt2);margin-top:8px;letter-spacing:1px}.dv{height:1px;background:var(--bord);margin:0 0 16px}.ew{display:flex;gap:8px;margin-bottom:14px}.eb{flex:1;background:var(--surf);border-radius:12px;padding:14px 12px}.eb.p{background:linear-gradient(135deg,rgba(232,184,75,0.08),rgba(232,184,75,0.02))}.el{font-size:10px;color:var(--txt2);margin-bottom:6px;letter-spacing:.5px}.ev{font-family:var(--mono);font-weight:700;line-height:1}.ev.lg{font-size:24px;color:var(--gold);animation:gw 3s ease infinite}.ev.md{font-size:18px;color:var(--txt)}.ev .u{font-size:12px;font-weight:300;opacity:.5;margin-right:1px}@keyframes gw{0%,100%{text-shadow:0 0 18px rgba(232,184,75,0.1)}50%{text-shadow:0 0 30px rgba(232,184,75,0.25)}}.pw{margin-bottom:14px}.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.ph .lb{font-size:10px;color:var(--txt2)}.ph .pv{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--gold)}.pt{height:3px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden}.pf{height:100%;border-radius:2px;transition:width .5s;background:linear-gradient(90deg,rgba(232,184,75,0.35),var(--gold))}.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}.ig2{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.ib{background:var(--surf);border-radius:8px;padding:10px 4px;text-align:center}.ib .v{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px}.ib .l{font-size:9px;color:var(--txt2)}.rm{text-align:center;padding:12px 0;font-size:13px;color:var(--txt2);display:none;line-height:1.6}.rm .ra{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--gold);animation:gw 3s ease infinite}.ft{text-align:center;margin-top:10px;font-size:10px;color:var(--txt3)}.ov{position:fixed;inset:0;background:rgba(0,0,0,0.55);100;opacity:0;pointer-events:none;transition:opacity .25s}.ov.on{opacity:1;pointer-events:auto}.sh{position:fixed;bottom:0backdrop-filter:blur(6px);z-index:;left:0;right:0;max-height:90vh;background:var(--card);border-radius:18px 18px 0 0;z-index:101;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column}.sh.on{transform:translateY(0)}.shh{width:32px;height:3px;border-radius:2px;background:var(--txt3);margin:8px auto 0}.sht{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 10px}.sht h3{font-size:16px;font-weight:600}.xb{width:28px;height:28px;border-radius:6px;border:none;background:var(--surf);color:var(--txt2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}.xb:active{transform:scale(.9)}.shb{padding:0 20px 16px;overflow-y:auto;flex:1}.fs{margin-bottom:18px}.fst{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}.fr{display:flex;gap:8px;margin-bottom:8px}.ff{flex:1}.ff label{display:block;font-size:11px;color:var(--txt2);margin-bottom:4px}.ff input{width:100%;background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:9px 12px;color:var(--txt);font-family:var(--mono);font-size:14px;outline:none}.ff input:focus{border-color:var(--gold)}.ff .px{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:14px;color:var(--txt2)}.iw{position:relative}.iw input{padding-left:26px}.og{display:flex;background:var(--surf);border-radius:8px;padding:2px;gap:2px}.op{flex:1;padding:8px;border:none;border-radius:6px;background:transparent;color:var(--txt2);font-size:12px;font-family:var(--sans);cursor:pointer;font-weight:500;transition:all .15s}.op.on{background:var(--gold);color:var(--bg);font-weight:600}.op:active{transform:scale(.96)}.sr{margin-top:8px;overflow:hidden;max-height:0;opacity:0;transition:all .25s}.sr.show{max-height:100px;opacity:1}.fhint{font-size:10px;color:var(--txt3);margin-top:6px;line-height:1.6}.sft{padding:10px 20px 24px;flex-shrink:0}.svb{width:100%;padding:12px;border:none;border-radius:10px;background:var(--gold);color:var(--bg);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer}.svb:active{transform:scale(.98)}.toast{position:fixed;bottom:36px;left:50%;z-index:200;background:var(--green);color:var(--bg);padding:8px 24px;border-radius:20px;font-size:13px;font-weight:600;transform:translateX(-50%) translateY(60px);opacity:0;transition:all .3s;pointer-events:none}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.zr{display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:8px;padding:8px 12px}.zb{width:32px;height:32px;border-radius:8px;border:none;background:var(--card);color:var(--txt2);cursor:pointer;font-size:18px;font-weight:600;font-family:var(--mono);display:flex;align-items:center;justify-content:center;flex-shrink:0}.zb:active{transform:scale(.9)}.zv{flex:1;text-align:center;font-family:var(--mono);font-size:14px;font-weight:600;color:var(--txt)}.zrb{font-size:11px;color:var(--txt3);cursor:pointer;background:none;border:none;padding:4px 8px;border-radius:4px;font-family:var(--mono);flex-shrink:0}.zrb:hover{color:var(--txt2)}.cdesc{margin-top:8px;padding:10px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--bord)}.cdesc p{font-size:10px;line-height:1.7;color:var(--txt2)}.cdesc strong{color:var(--txt);font-weight:600}
 </style>
 </head>
 <body>
-<div class="scale-wrap" id="scaleWrap">
-  <div id="emp">
-    <div class="card" style="border:none;background:transparent">
-      <div class="es">
-        <div class="ei">¥</div>
-        <h2>日薪时钟</h2>
-        <p>设置薪资和工作时间<br>实时查看今日收益</p>
-        <button class="gbtn" onclick="openS(true)">开始设置</button>
-      </div>
-    </div>
-  </div>
-  <div class="card" id="mc" style="display:none">
-    <div class="hdr">
-      <div class="hdr-l">
-        <div class="badge" id="bdg"><span class="dot"></span><span id="stx">--</span></div>
-        <span class="wtag" id="wkT" style="display:none"></span>
-      </div>
-      <button class="sbtn" onclick="openS(false)">⚙</button>
-    </div>
-    <div class="cs">
-      <div class="ck"><span id="cH">00</span><span class="c">:</span><span id="cM">00</span><span class="sc">:<span id="cS">00</span></span></div>
-      <div class="dt" id="dL">加载中...</div>
-    </div>
-    <div class="dv"></div>
-    <div class="ew">
-      <div class="eb p"><div class="el">今日已赚</div><div class="ev lg"><span class="u">¥</span><span id="tE">0.00</span></div></div>
-      <div class="eb"><div class="el">本月累计</div><div class="ev md"><span class="u">¥</span><span id="mE">0.00</span></div></div>
-    </div>
-    <div class="pw">
-      <div class="ph"><span class="lb">今日工作进度</span><span class="pv" id="pp">0%</span></div>
-      <div class="pt"><div class="pf" id="pfl"></div></div>
-    </div>
-    <div class="ig">
-      <div class="ib"><div class="v" id="iH">--</div><div class="l">今日工时</div></div>
-      <div class="ib"><div class="v" id="iR">--</div><div class="l">时薪</div></div>
-      <div class="ib"><div class="v" id="iT">--</div><div class="l">距下班</div></div>
-      <div class="ib"><div class="v" id="iP">--</div><div class="l">距发薪</div></div>
-    </div>
-    <div class="rm" id="rm"></div>
-    <div class="ft" id="fi"></div>
-  </div>
-</div>
-
-<!-- Settings -->
+<div class="sw">
+<div id="emp"><div class="card" style="border:none;background:transparent"><div class="es"><div class="ei">¥</div><h2>日薪时钟</h2><p>设置薪资和工作时间<br>实时查看今日收益</p><button class="gbtn" onclick="openS(true)">开始设置</button></div></div></div>
+<div class="card" id="mc" style="display:none">
+<div class="hdr"><div class="hdr-l"><div class="badge" id="bdg"><span class="dot"></span><span id="stx">--</span></div><span class="wtag" id="wkT" style="display:none"></span></div><button class="sbtn" onclick="openS(false)">⚙</button></div>
+<div class="cs"><div class="ck"><span id="cH">00</span><span class="c">:</span><span id="cM">00</span><span class="sc">:<span id="cS">00</span></span></div><div class="dt" id="dL">加载中...</div></div>
+<div class="dv"></div>
+<div class="ew"><div class="eb p"><div class="el">今日已赚</div><div class="ev lg"><span class="u">¥</span><span id="tE">0.00</span></div></div><div class="eb"><div class="el">本月累计</div><div class="ev md"><span class="u">¥</span><span id="mE">0.00</span></div></div></div>
+<div class="pw"><div class="ph"><span class="lb">今日工作进度</span><span class="pv" id="pp">0%</span></div><div class="pt"><div class="pf" id="pfl"></div></div></div>
+<div class="ig"><div class="ib"><div class="v" id="iH">--</div><div class="l">今日工时</div></div><div class="ib"><div class="v" id="iDS">--</div><div class="l">日薪</div></div><div class="ib"><div class="v" id="iR">--</div><div class="l">时薪</div></div></div>
+<div class="ig2"><div class="ib"><div class="v" id="iT">--</div><div class="l">距下班</div></div><div class="ib"><div class="v" id="iP">--</div><div class="l">距发薪</div></div></div>
+<div class="rm" id="rm"></div>
+<div class="ft" id="fi"></div>
+</div></div>
 <div class="ov" id="ov" onclick="closeS()"></div>
 <div class="sh" id="sh">
-  <div class="shh"></div>
-  <div class="sht"><h3>设置</h3><button class="xb" onclick="closeS()">×</button></div>
-  <div class="shb">
-    <div class="fs">
-      <div class="fst">显示大小</div>
-      <div class="zoom-row">
-        <button class="zoom-btn" onclick="zoomOut()">−</button>
-        <span class="zoom-val" id="zoomVal">100%</span>
-        <button class="zoom-btn" onclick="zoomIn()">+</button>
-        <button class="zoom-reset" onclick="zoomReset()">重置</button>
-      </div>
-      <div class="fhint">键盘快捷键：Ctrl + 放大 ｜ Ctrl - 缩小 ｜ Ctrl 0 重置</div>
-    </div>
-    <div class="fs">
-      <div class="fst">薪资</div>
-      <div class="ff"><label>月薪（税前）</label><div class="iw"><span class="px">¥</span><input type="number" id="fS" placeholder="如 8000"></div></div>
-    </div>
-    <div class="fs">
-      <div class="fst">工作时间</div>
-      <div class="fr">
-        <div class="ff"><label>上班</label><input type="time" id="fWS" value="09:00"></div>
-        <div class="ff"><label>下班</label><input type="time" id="fWE" value="18:00"></div>
-      </div>
-      <div class="fr">
-        <div class="ff"><label>午休开始</label><input type="time" id="fLS" value="12:00"></div>
-        <div class="ff"><label>午休结束</label><input type="time" id="fLE" value="13:00"></div>
-      </div>
-    </div>
-    <div class="fs">
-      <div class="fst">休息模式</div>
-      <div class="og" id="rmG">
-        <button class="op on" data-v="double" onclick="selRM(this)">双休</button>
-        <button class="op" data-v="single" onclick="selRM(this)">单休</button>
-        <button class="op" data-v="alternate" onclick="selRM(this)">大小周</button>
-      </div>
-      <div class="sr" id="sRW">
-        <div class="og" id="rdG" style="margin-top:6px">
-          <button class="op" data-v="saturday" onclick="selRD(this)">休息周六</button>
-          <button class="op on" data-v="sunday" onclick="selRD(this)">休息周日</button>
-        </div>
-      </div>
-      <div class="sr" id="aRW">
-        <div style="margin-top:6px">
-          <div style="font-size:11px;color:var(--txt2);margin-bottom:6px">本周类型</div>
-          <div class="og" id="awG">
-            <button class="op on" data-v="big" onclick="selAW(this)">大周</button>
-            <button class="op" data-v="small" onclick="selAW(this)">小周</button>
-          </div>
-          <div class="fhint">大周：休1天（周日）｜小周：休2天（周六、周日）<br>设置后按周自动交替轮换</div>
-        </div>
-      </div>
-    </div>
-    <div class="fs">
-      <div class="fst">发薪日</div>
-      <div class="ff"><label>每月几号发薪</label><input type="number" id="fPD" value="10" min="1" max="28" style="width:90px"></div>
-    </div>
-  </div>
-  <div class="sft"><button class="svb" onclick="saveCfg()">保存设置</button></div>
+<div class="shh"></div>
+<div class="sht"><h3>设置</h3><button class="xb" onclick="closeS()">×</button></div>
+<div class="shb">
+<div class="fs"><div class="fst">显示大小</div><div class="zr"><button class="zb" onclick="zOut()">−</button><span class="zv" id="zVal">100%</span><button class="zb" onclick="zIn()">+</button><button class="zrb" onclick="zReset()">重置</button></div><div class="fhint">键盘：Ctrl+放大 Ctrl-缩小 Ctrl+0重置</div></div>
+<div class="fs"><div class="fst">薪资</div><div class="ff"><label>月薪（税前）</label><div class="iw"><span class="px">¥</span><input type="number" id="fS" placeholder="如 8000"></div></div></div>
+<div class="fs"><div class="fst">薪资算法</div><div class="og" id="cmG"><button class="op on" data-v="actual" onclick="selCM(this)">实际排班</button><button class="op" data-v=legal onclick="selCM(this)">法定标准</button></div><div class="cdesc" id="cmDesc"></div></div>
+<div class="fs"><div class="fst">工作时间</div><div class="fr"><div class="ff"><label>上班</label><input type="time" id="fWS" value="09:00"></div><div class="ff"><label>下班</label><input type="time" id="fWE" value="18:00"></div></div><div class="fr"><div class="ff"><label>午休开始</label><input type="time" id="fLS" value="12:00"></div><div class="ff"><label>午休结束</label><input type="time" id="fLE" value="13:00"></div></div></div>
+"fst"休息模式
+<div class="fs"><div class="fst">发薪日</div><div class="ff"><label>每月几号发薪</label><input type="number" id="fPD" value="10" min="1" max="28" style="width:90px"></div></div>
+</div>
+<div class="sft"><button class="svb" onclick="saveCfg()">保存设置</button></div>
 </div>
 <div class="toast" id="toast"></div>
-
 <script>
-var WK = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-var DEF = {
-  salary: 8000, work_start: '09:00', work_end: '18:00',
-  lunch_start: '12:00', lunch_end: '13:00',
-  rest_mode: 'double', single_rest_day: 'sunday',
-  ref_monday_ts: 0, ref_is_big: true, pay_day: 10
-};
-var cfg = null;
-var zoomLevel = 100;
-
-function $(id) { return document.getElementById(id); }
-function toMin(t) { var p = t.split(':'); return parseInt(p[0],10)*60+parseInt(p[1],10); }
-
-/* ======== Zoom ======== */
-function applyZoom() {
-  document.documentElement.style.setProperty('--sc', zoomLevel / 100);
-  $('zoomVal').textContent = zoomLevel + '%';
-  localStorage.setItem('dayW3zoom', zoomLevel);
-}
-function zoomIn() { if (zoomLevel < 300) { zoomLevel += 10; applyZoom(); } }
-function zoomOut() { if (zoomLevel > 30) { zoomLevel -= 10; applyZoom(); } }
-function zoomReset() { zoomLevel = 100; applyZoom(); }
-
-/* ======== Config ======== */
-function loadCfg() {
-  try {
-    var raw = localStorage.getItem('dayW3');
-    if (raw) { var d = JSON.parse(raw), c = {}; for (var k in DEF) c[k] = (d[k] !== undefined) ? d[k] : DEF[k]; return c; }
-  } catch (e) {}
-  return null;
-}
-function saveToStorage(c) { localStorage.setItem('dayW3', JSON.stringify(c)); }
-
-/* ======== Date Helpers ======== */
-function getMonday(d) {
-  var dt = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  var day = dt.getDay();
-  if (day === 0) dt.setDate(dt.getDate()-6); else dt.setDate(dt.getDate()-day+1);
-  return dt;
-}
-function getWeekDiff(a, b) { return Math.round((getMonday(a).getTime()-getMonday(b).getTime())/604800000); }
-function isBigWeek(date, refMon, refBig) { var d = getWeekDiff(date, refMon); return d%2===0 ? refBig : !refBig; }
-
-/* ======== Work Day ======== */
-function isWorkDay(y, m, d, c) {
-  var dow = new Date(y,m,d).getDay();
-  if (c.rest_mode==='double') return dow!==0 && dow!==6;
-  if (c.rest_mode==='single') return c.single_rest_day==='saturday' ? dow!==5 : dow!==0;
-  if (c.rest_mode==='alternate') {
-    var big = isBigWeek(new Date(y,m,d), new Date(c.ref_monday_ts), c.ref_is_big);
-    return big ? dow!==0 : dow!==0 && dow!==6;
-  }
-  return true;
-}
-function countWorkDays(y,m,c) { var n=new Date(y,m+1,0).getDate(),ct=0; for(var d=1;d<=n;d++) if(isWorkDay(y,m,d,c)) ct++; return ct; }
-function getDailyHours(c) { return Math.max(0,(toMin(c.work_end)-toMin(c.work_start)-toMin(c.lunch_end)+toMin(c.lunch_start))/60); }
-function getDailyHoursText(c) { var w=Math.max(0,(toMin(c.work_end)-toMin(c.work_start))-(toMin(c.lunch_end)-toMin(c.lunch_start))); return Math.floor(w/60)+'时'+(w%60>0?w%60+'分':''); }
-function getElapsedHours(c) {
-  var n=new Date(),s=n.getHours()*3600+n.getMinutes()*60+n.getSeconds();
-  var ws=toMin(c.work_start)*60,we=toMin(c.work_end)*60,ls=toMin(c.lunch_start)*60,le=toMin(c.lunch_end)*60;
-  if(s<=ws)return 0; if(s>=we)return(we-ws-(le-ls))/3600;
-  var e=s-ws; if(s>le) e-=(le-ls); else if(s>ls) e-=(s-ls);
-  return Math.max(0,e/3600);
-}
-function getStatus(c) {
-  var n=new Date(); if(!isWorkDay(n.getFullYear(),n.getMonth(),n.getDate(),c)) return 'rest';
-  var s=n.getHours()*3600+n.getMinutes()*60+n.getSeconds();
-  var ws=toMin(c.work_start)*60,we=toMin(c.work_end)*60,ls=toMin(c.lunch_start)*60,le=toMin(c.lunch_end)*60;
-  if(s<ws) return 'waiting'; if(s>=we) return 'off'; if(s>=ls&&s<le) return 'lunch'; return 'working';
-}
-var ST={working:['● 工作中','s-work'],waiting:['● 等待上班','s-wait'],off:['● 已下班','s-off'],lunch:['● 午休中','s-lunch'],rest:['● 今日休息','s-rest']};
-
-/* ======== Render ======== */
-function render() {
-  if (!cfg) return;
-  try {
-    var now=new Date(),y=now.getFullYear(),m=now.getMonth(),d=now.getDate();
-    var hh=now.getHours(),mi=now.getMinutes(),ss=now.getSeconds();
-
-    $('cH').textContent=(hh<10?'0':'')+hh;
-    $('cM').textContent=(mi<10?'0':'')+mi;
-    $('cS').textContent=(ss<10?'0':'')+ss;
-    $('dL').textContent=y+'年'+(m<9?'0':'')+(m+1)+'月'+(d<10?'0':'')+d+'日 '+WK[now.getDay()];
-
-    var st=getStatus(cfg),si=ST[st];
-    $('bdg').className='badge '+si[1];
-    $('stx').textContent=si[0];
-
-    var wkT=$('wkT');
-    if(cfg.rest_mode==='alternate'){
-      var big=isBigWeek(now,new Date(cfg.ref_monday_ts),cfg.ref_is_big);
-      wkT.style.display='inline-block';
-      wkT.textContent=big?'大周':'小周';
-      wkT.className='wtag '+(big?'big':'sm');
-    } else { wkT.style.display='none'; }
-
-    var wd=countWorkDays(y,m,cfg),dh=getDailyHours(cfg);
-    var rate=(wd>0&&dh>0)?cfg.salary/(wd*dh):0,daily=rate*dh;
-    var tw=isWorkDay(y,m,d,cfg),te=tw?getElapsedHours(cfg)*rate:0;
-
-    $('tE').textContent=te.toFixed(2);
-
-    var past=0; for(var dd=1;dd<d;dd++) if(isWorkDay(y,m,dd,cfg)) past++;
-    $('mE').textContent=(past*daily+te).toFixed(2);
-
-    var pct=dh>0?Math.min(100,getElapsedHours(cfg)/dh*100):0;
-    $('pp').textContent=Math.round(pct)+'%';
-    $('pfl').style.width=pct+'%';
-
-    $('iH').textContent=getDailyHoursText(cfg);
-    $('iR').textContent='¥'+rate.toFixed(1);
-
-    // 距下班 — 使用 cfg 而非 c
-    var ns=hh*3600+mi*60+ss;
-    if(st==='off'||st==='rest'){
-      $('iT').textContent=st==='off'?'已下班':'--';
-    } else {
-      var targetSec;
-      if(st==='waiting'){
-        targetSec=toMin(cfg.work_start)*60;
-      } else {
-        targetSec=toMin(cfg.work_end)*60;
-      }
-      var df=Math.max(0,targetSec-ns);
-      var rh=Math.floor(df/3600);
-      var rmi=Math.floor((df%3600)/60);
-      $('iT').textContent=(rh<10?'0':'')+rh+':'+(rmi<10?'0':'')+rmi;
-    }
-
-    // 距发薪
-    var pd=cfg.pay_day,md=new Date(y,m+1,0).getDate();
-    if(d===pd) $('iP').textContent='今天';
-    else if(d<pd) $('iP').textContent=(pd-d)+'天';
-    else $('iP').textContent=(md-d+pd)+'天';
-
-    // 休息/下班提示
-    var rmEl=$('rm');
-    if(st==='off'){rmEl.style.display='block';rmEl.textContent='今日工作已结束，辛苦了'}
-    else if(st==='rest'){rmEl.style.display='block';rmEl.textContent='今日休息，好好享受吧'}
-    else{rmEl.style.display='none'}
-
-    var tf=tw?1:0;
-    $('fi').textContent='本月'+wd+'个工作日 · 已过'+past+'天 · 剩余'+Math.max(0,wd-past-tf)+'天';
-
-  } catch(e) { console.error('Render error:', e); }
-}
-
-/* ======== Settings ======== */
-function openS() {
-  if(cfg){
-    $('fS').value=cfg.salary;
-    $('fWS').value=cfg.work_start;
-    $('fWE').value=cfg.work_end;
-    $('fLS').value=cfg.lunch_start;
-    $('fLE').value=cfg.lunch_end;
-    $('fPD').value=cfg.pay_day;
-    setRM(cfg.rest_mode);
-    setRD(cfg.single_rest_day);
-    setAW(cfg.ref_is_big?'big':'small');
-  }
-  $('ov').classList.add('on');
-  $('sh').classList.add('on');
-}
-function closeS(){$('ov').classList.remove('on');$('sh').classList.remove('on')}
-function setRM(v){var b=document.querySelectorAll('#rmG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op';$('sRW').className=v==='single'?'sr show':'sr';$('aRW').className=v==='alternate'?'sr show':'sr'}
-function setRD(v){var b=document.querySelectorAll('#rdG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op'}
-function setAW(v){var b=document.querySelectorAll('#awG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op'}
-function selRM(b){setRM(b.getAttribute('data-v'))}
-function selRD(b){setRD(b.getAttribute('data-v'))}
-function selAW(b){setAW(b.getAttribute('data-v'))}
+var WK=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];var DEF={salary:8000,work_start:'09:00',work_end:'18:00',lunch_start:'12:00',午餐结束时间:'13:00',休息模式:'双休',单休日:'星期天',参考周一时间戳:0,参考是否为大周:true,发薪日:10,计算模式:'实际'};var 配置=空,zl=100;函数 $(i){返回 document.getElementById(i)}函数 toM(t){var p=t.分割(':');返回 parseInt(p[0],10)*60+parseInt(p[1],10)}
+function aZ(){document.documentElement.style.setProperty('--sc',zl/100);$('zVal').textContent=zl+'%';localStorage.setItem('dayW3z',zl)}function zIn(){if(zl<300){zl+=10;aZ()}}function zOut(){if(zl>30){zl-=10;aZ()}}function zReset(){zl=100;aZ()}
+function loadCfg(){try{var r=localStorage.getItem('dayW3');if(r){var d=JSON.parse(r),c={};for(var k in DEF)c[k]=(d[k]!==undefined)?d[k]:DEF[k];return c}}catch(e){}return null}function saveSt(c){localStorage.setItem('dayW3',JSON.stringify(c))}
+functiongetMon(d){vardt=newDate.getFullYear,getMonthgetDatedygetDay;if===0setDate-6否则+1返回}获取WDab数学四舍五入获取当前时间/604800000是否为大日期rmri%2？:!
+function isWD(y,m,d,c){var w=new Date(y,m,d).getDay();if(c.rest_mode==='double')return w!==0&&w!==6;if(c.rest_mode==='single')return c.single_rest_day==='saturday'?w!==5:w!==0;if(c.rest_mode==='alternate'){var b=isBig(new Date(y,m,d),new Date(c.ref_monday_ts),c.ref_is_big);return b?w!==0:w!==0&&w!==6}return true}function cWD(y,m,c){var n=new Date(y,m+1,0).getDate(),ct=0;for(var d=1;d<=n;d++)if(isWD(y,m,d,c))ct++;return ct}function gDH(c){return 数学.最大值(0,(到M(c.工作结束)-到M(c.工作开始)-到M(c.午餐结束)+到M(c.午餐开始))/60)}function gDHT(c){var w=数学.最大值(0,(到M(c.工作结束)-到M(c.工作开始))-(到M(c.午餐结束)-到M(c.午餐开始)));return 数学.取整(w/60)+‘时’+(w%60>0?w%60+‘分’:'')}
+function gDS(c){var dh=gDH(c);if(dh<=0)return 0;if(c.calc_mode==='legal')return c.salary/21.75;var n=new Date(),y=n.getFullYear(),m=n.getMonth(),d=n.getDate();if(!isWD(y,m,d,c))return 0;var wd=cWD(y,m,c);return wd>0?c.salary/wd:0}function gHR(c){var dh=gDH(c);if(dh<=0)return 0;if(c.calc_mode==='legal')return c.salary/174;var n=new Date(),y=n.getFullYear(),m=n.getMonth(),d=n.getDate();if(!isWD(y,m,d,c))return 0;var wd=cWD(y,m,c);return wd>0?c.salary/(wd*dh):0}
+function gEH(c){var n=new Date(),s=n.getHours()*3600+n.getMinutes()*60+n.getSeconds();var ws=toM(c.work_start)*60,we=toM(c.work_end)*60,ls=toM(c.lunch_start)*60,le=toM(c.lunch_end)*60;if(s<=ws)return 0;if(s>=we)return(we-ws-(le-ls))/3600;var e=s-ws;if(s>le)e-=(le-ls);else if(s>ls)e-=(s-ls);return Math.max(0,e/3600)}
+function gTE(c){var n=new Date(),y=n.getFullYear(),m=n.getMonth(),d=n.getDate();if(!isWD(y,m,d,c)){return c.calc_mode==='合法'?c.工资/21.75:0}var 第=gSt(c);if(第==='关闭')return gDS(c);return gEH(c)*gHR(c)}
+function gSt(c){var n=new Date();if(!isWD(n.getFullYear(),n.getMonth(),n.getDate(),c))return'rest';var s=n.getHours()*3600+n.getMinutes()*60+n.getSeconds();var ws=toM(c.work_start)*60,we=toM(c.work_end)*60,ls=toM(c.lunch_start)*60,le=toM(c.lunch_end)*60;if(s<ws)return'waiting';if(s>=we)return'off';if(s>=ls&&s<le)return'lunch';return'working'}
+var ST={working:['● 工作中','s-work'],waiting:['● 等待上班','s-wait'],off:['● 已下班','s-off'],lunch:['● 午休中','s-lunch'],rest:['● 今日休息',的-休息]};
+var CMD={'actual':'<p><strong>实际排班</strong>：时薪 = 月薪 / 当月实际工作日 / 每日工时<br>节假日时薪日薪显示为0，薪资平摊到每个工作日</p>','legal':'<p><strong>法定标准</strong>：时薪 = 月薪 / 174小时，日薪 = 月薪 / 21.75天<br>节假日照常计算时薪日薪，全月统一标准</p>'};
+function render(){if(!cfg)return;try{var n=new Date(),y=n.getFullYear(),m=n.getMonth(),d=n.getDate();var hh=n.getHours(),mi=n.getMinutes(),ss=n.getSeconds();$('cH').textContent=(hh<10?'0':'')+hh;$('cM').textContent=(mi<10?'0':'')+mi;$('cS').textContent=(ss<10?'0':'')+ss;$('dL').textContent=y+'年'+(m<9?'0':'')+(m+1)+'月'+(d<10?'0':'')+d+'日 '+WK[n.getDay()];var st=gSt(cfg),si=ST[st];$('bdg').className='badge '+si[1];$('stx').textContent=si[0];var wkT=$('wkT');if(cfg.rest_mode==='alternate'){var big=isBig(n,new Date(cfg.ref_monday_ts),cfg.ref_is_big);wkT.style.display='inline-block';wkT.textContent=big?'大周':'小周';wkT.className='wtag '+(big?'big':'sm')}else{wkT.style.display='none'}var ds=gDS(cfg),hr=gHR(cfg),te=gTE(cfg);var isWork=isWD(y,m,d,cfg);$('tE').textContent=te.toFixed(2);var wd=cWD(y,m,cfg),dh=gDH(cfg),daily=ds;var past=0;for(var dd=1;dd<d;dd++)if(isWD(y,m,dd,cfg))past++;$('mE').textContent=(past*daily+te).toFixed(2);var pct=dh>0?Math.min(100,gEH(cfg)/dh*100):0;if(!isWork)pct=st==='off'?100:0;$('pp').textContent=Math.round(pct)+'%';$('pfl').style.width=pct+'%';$('iH').textContent=gDHT(cfg);if(isWork||cfg.calc_mode==='legal'){$('iDS').textContent='¥'+ds.toFixed(1);$('iR').textContent='¥'+hr.toFixed(1)}else{$('iDS').textContent='¥0';$('iR').textContent='¥0'}var ns=hh*3600+mi*60+ss;if(st==='off'||st==='rest'){$('iT').textContent=st==='off'?'已下班':'--'}else{var tgt=st==='waiting'?toM(cfg.work_start)*60:toM(cfg.work_end)*60;var df=Math.max(0,tgt-ns);$('iT').textContent=(df<10?'0':'')+Math.floor(df/3600)+':'+((df%3600)/60<10?'0':'')+Math.floor((df%3600)/60)}var pd=cfg.pay_day,md=new Date(y,m+1,0).getDate();if(d===pd)$('iP').textContent='今天';else if(d<pd)$('iP').textContent=(pd-d)+'天';else $('iP').textContent=(md-d+pd)+'天';var rmEl=$('rm');if(st==='off'){rmEl.style.display='block';rmEl.innerHTML='<div>上班辛苦了，今日赚取</div><div class="ra">¥'+te.toFixed(2)+'</div>'}else if(st==='rest'){rmEl.style.display='block';var holidayEarn=cfg.calc_mode==='legal'?'<div>放假快乐！今日赚取</div><div class="ra">¥'+te.toFixed(2)+'</div>':'<div>放假快乐！</div>';rmEl.innerHTML=holidayEarn}else{rmEl.style.display='none'}var tf=isWork?1:0;$('fi').textContent='本月'+wd+'个工作日 · 已过'+past+'天 · 剩余'+Math.max(0,wd-past-tf)+'天'}catch(e){console.error(e)}}
+function openS(){if(cfg){$('fS').value=cfg.salary;$('fWS').value=cfg.work_start;$('fWE').value=cfg.work_end;$('fLS').value=cfg.lunch_start;$('fLE').value=cfg.lunch_end;$('fPD').value=cfg.发薪日;设置RM(cfg.休息模式);设置RD(cfg.单休日);设置AW(cfg.ref_is_big?'大':'小');设置CM(cfg.计算模式||'实际')}$('超').类列表.添加('开');$('关').类列表.添加('开')}function 关闭S(){$('超').类列表.删除('开');$('关').类列表.删除('开')}
+function setRM(v){var b=document.querySelectorAll('#rmG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op';$('sRW').className=v==='single'?'sr show':'sr';$('aRW').className=v==='alternate'?'sr show':'sr'}function setRD(v){var b=document.querySelectorAll('#rdG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op'}function setAW(v){var b=document.querySelectorAll('#awG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op'}function setCM(v){var b=document.querySelectorAll('#cmG .op');for(var i=0;i<b.length;i++)b[i].className=b[i].getAttribute('data-v')===v?'op on':'op';$('cmDesc').innerHTML=CMD[v]||CMD.actual}
+function selRM(b){setRM(b.getAttribute('data-v'))}function selRD(b){setRD(b.getAttribute('data-v'))}function selAW(b){setAW(b.getAttribute('data-v'))}function selCM(b){setCM(b.getAttribute('data-v'))}
 function showToast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1600)}
-
-function saveCfg(){
-  var salary=parseInt($('fS').value,10);
-  if(!salary||salary<=0){alert('请输入有效月薪');return}
-  var ws=$('fWS').value,we=$('fWE').value,ls=$('fLS').value,le=$('fLE').value;
-  if(!ws||!we||!ls||!le){alert('请填写完整时间');return}
-  if(toMin(we)<=toMin(ws)){alert('下班必须晚于上班');return}
-  if(toMin(le)<=toMin(ls)){alert('午休结束必须晚于开始');return}
-  if(!(toMin(ws)<=toMin(ls)&&toMin(le)<=toMin(we))){alert('午休需在上下班时间内');return}
-  var pd=parseInt($('fPD').value,10);
-  if(!pd||pd<1||pd>28){alert('发薪日请输入1-28');return}
-  var rm=document.querySelector('#rmG .op.on'),rd=document.querySelector('#rdG .op.on'),aw=document.querySelector('#awG .op.on');
-  cfg={
-    salary:salary,work_start:ws,work_end:we,lunch_start:ls,lunch_end:le,
-    rest_mode:rm?rm.getAttribute('data-v'):'double',
-    single_rest_day:rd?rd.getAttribute('data-v'):'sunday',
-    ref_monday_ts:getMonday(new Date()).getTime(),
-    ref_is_big:aw?aw.getAttribute('data-v')==='big':true,
-    pay_day:pd
-  };
-  saveToStorage(cfg);closeS();showMain();showToast('设置已保存');
-}
+function saveCfg(){var salary=parseInt($('fS').value,10);if(!salary||salary<=0){alert('请输入有效月薪');return}var ws=$('fWS').value,we=$('fWE').value,ls=$('fLS').value,le=$('fLE').value;if(!ws||!we||!ls||!le){alert('请填写完整时间');return}if(toM(we)<=toM(ws)){alert('下班必须晚于上班');return}if(toM(le)<=toM(ls)){alert('午休结束必须晚于开始');return}if(!(toM(ws)<=toM(ls)&&toM(le)<=toM(we))){alert('午休需在上下班时间内');return}var pd=parseInt($('fPD').value,10);if(!pd||pd<1||pd>28){alert('发薪日请输入1-28');return}var rm=document.querySelector('#rmG .op.on'),rd=document.querySelector('#rdG .op.on'),aw=document.querySelector('#awG .op.on'),cm=document.querySelector('#cmG .op.on');cfg={salary:salary,work_start:ws,work_end:we,lunch_start:ls,lunch_end:le,rest_mode:rm?rm.getAttribute('data-v'):'double',single_rest_day:rd?rd.getAttribute('data-v'):'sunday',ref_monday_ts:getMon(new Date()).getTime(),ref_is_big:aw?aw.getAttribute('data-v')==='big':true,pay_day:pd,calc_mode:cm?cm.getAttribute('data-v'):'actual'};saveSt(cfg);closeS();showMain();showToast('设置已保存')}
 function showMain(){$('emp').style.display='none';$('mc').style.display='block'}
-
-/* ======== Init ======== */
-var savedZoom=localStorage.getItem('dayW3zoom');
-if(savedZoom) zoomLevel=parseInt(savedZoom,10);
-applyZoom();
-
-cfg=loadCfg();
-if(cfg){
-  if(!cfg.ref_monday_ts) cfg.ref_monday_ts=getMonday(new Date()).getTime();
-  if(cfg.ref_is_big===undefined) cfg.ref_is_big=true;
-  showMain();
-}
-render();
-setInterval(render,500);
-document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
-window.addEventListener('focus',function(){setTimeout(render,50)});
-window.addEventListener('pageshow',function(){setTimeout(render,50)});
-document.addEventListener('keydown',function(e){
-  if((e.ctrlKey||e.metaKey)&&e.key==='='){e.preventDefault();zoomIn()}
-  if((e.ctrlKey||e.metaKey)&&e.key==='-'){e.preventDefault();zoomOut()}
-  if((e.ctrlKey||e.metaKey)&&e.key==='0'){e.preventDefault();zoomReset()}
-});
+var sz=localStorage.getItem('dayW3z');if(sz)zl=parseInt(sz,10);aZ();cfg=loadCfg();if(cfg){if(!cfg.ref_monday_ts)cfg.ref_monday_ts=getMon(new Date()).getTime();if(cfg.ref_is_big===undefined)cfg.ref_is_big=true;if(!cfg.calc_mode)cfg.calc_mode='actual';showMain()}render();setInterval(render,500);document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});window.addEventListener('focus',function(){setTimeout(render,50)});window.addEventListener('pageshow',function(){setTimeout(render,50)});document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='='){e.preventDefault();zIn()}if((e.ctrlKey||e.metaKey)&&e.key==='-'){e.preventDefault();zOut()}if((e.ctrlKey||e.metaKey)&&e.key==='0'){e.preventDefault();zReset()}});
 </script>
 </body>
 </html>
