@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>日薪时钟</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.w{width:420px}
+.card{background:#0e0e16;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden}
+.card.hb{background-size:cover;background-position:center}
+.card.hb::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.4);border-radius:20px;pointer-events:none;z-index:0}
+.card.hb>*{position:relative;z-index:1}
+.es{text-align:center;padding:40px 16px}
+.ei{width:60px;height:60px;border-radius:16px;margin:0 auto 14px;background:rgba(232,184,75,.08);display:flex;align-items:center;justify-content:center;font:700 26px 'JetBrains Mono',monospace;color:#e8b84b}
+.es h2{font-size:18px;margin-bottom:6px}
+.es p{font-size:13px;color:#8a869a;margin-bottom:20px;line-height:1.5}
+.gbtn{font:600 13px 'JetBrains Mono',monospace;padding:12px 32px;border:none;border-radius:10px;cursor:pointer;background:#e8b84b;color:#08080e}
+.gbtn:active{transform:scale(.96)}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.hdr>div{display:flex;align-items:center;gap:8px}
+.badge{font-size:11px;padding:3px 10px;border-radius:16px}
+.sbtn{width:30px;height:30px;border-radius:8px;border:1px solid #252530;background:#16161f;color:#8a869a;cursor:pointer;font-size:14px}
+.cs{text-align:center;margin-bottom:16px}
+.ck{font:700 44px 'JetBrains Mono',monospace;letter-spacing:1px;line-height:1}
+.ck .c{opacity:.35}
+.ck .sc{font-size:24px;font-weight:300;color:#3e3c4e}
+.dt{font-size:12px;color:#8a869a;margin-top:8px}
+.dv{height:1px;background:#252530;margin:0 0 16px}
+.ew{display:flex;gap:8px;margin-bottom:14px}
+.eb{flex:1;background:#16161f;border-radius:12px;padding:14px 12px}
+.eb.p{background:linear-gradient(135deg,rgba(232,184,75,.08),rgba(232,184,75,.02))}
+.el{font-size:10px;color:#8a869a;margin-bottom:6px}
+.ev{font:700 18px 'JetBrains Mono',monospace;line-height:1}
+.ev.lg{font-size:24px;color:var(--earn,#e8b84b)}
+.ev .u{font-size:12px;font-weight:300;opacity:.5}
+.pw{margin-bottom:14px}
+.ph{display:flex;justify-content:space-between;margin-bottom:6px}
+.ph .lb{font-size:10px;color:#8a869a}
+.ph .pv{font:600 12px 'JetBrains Mono',monospace;color:#e8b84b}
+.pt{height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden}
+.pf{height:100%;border-radius:2px;background:linear-gradient(90deg,rgba(232,184,75,.35),#e8b84b);transition:width .5s}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}
+.ig2{grid-template-columns:repeat(2,1fr)}
+.ib{background:#16161f;border-radius:8px;padding:10px 4px;text-align:center}
+.ib .v{font:600 13px 'JetBrains Mono',monospace;margin-bottom:2px}
+.ib .l{font-size:9px;color:#8a869a}
+.rm{text-align:center;padding:10px 0;font-size:13px;color:#8a869a;display:none}
+.rm .ra{font:700 20px 'JetBrains Mono',monospace;color:var(--earn,#e8b84b)}
+.ft{text-align:center;margin-top:10px;font-size:10px;color:#3e3c4e}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:100;opacity:0;pointer-events:none;transition:opacity .25s}
+.ov.on{opacity:1;pointer-events:auto}
+.sh{position:fixed;bottom:0;left:0;right:0;max-height:90vh;background:#0e0e16;border-radius:18px 18px 0 0;z-index:101;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column}
+.sh.on{transform:translateY(0)}
+.shh{width:32px;height:3px;border-radius:2px;background:#3e3c4e;margin:8px auto 0}
+.sht{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 10px}
+.sht h3{font-size:16px;font-weight:600}
+.xb{width:28px;height:28px;border-radius:6px;border:none;background:#16161f;color:#8a869a;cursor:pointer;font-size:16px}
+.shb{padding:0 20px 16px;overflow-y:auto;flex:1}
+.fs{margin-bottom:16px}
+.fst{font-size:10px;font-weight:600;color:#3e3c4e;letter-spacing:1.5px;margin-bottom:8px}
+.ff label{display:block;font-size:11px;color:#8a869a;margin-bottom:4px}
+.ff input{width:100%;background:#16161f;border:1px solid #252530;border-radius:8px;padding:9px 12px;color:#eae6de;font:14px 'JetBrains Mono',monospace;outline:none}
+.ff input:focus{border-color:#e8b84b}
+.fr{display:flex;gap:8px;margin-bottom:8px}
+.ff{flex:1}
+.og{display:flex;background:#16161f;border-radius:8px;padding:2px;gap:2px}
+.op{flex:1;padding:8px;border:none;border-radius:6px;background:0;color:#8a869a;font-size:12px;cursor:pointer;transition:all .15s}
+.op.on{background:#e8b84b;color:#08080e;font-weight:600}
+.op:active{transform:scale(.96)}
+.sr2{margin-top:8px;overflow:hidden;max-height:0;opacity:0;transition:all .25s}
+.sr2.show{max-height:100px;opacity:1}
+.fh{font-size:10px;color:#3e3c4e;margin-top:4px}
+.sft{padding:10px 20px 24px;flex-shrink:0}
+.svb{width:100%;padding:12px;border:none;border-radius:10px;background:#e8b84b;color:#08080e;font-size:14px;font-weight:600;cursor:pointer}
+.svb:active{transform:scale(.98)}
+.toast{position:fixed;bottom:36px;left:50%;z-index:200;background:#2dd67a;color:#08080e;padding:8px 24px;border-radius:20px;font-size:13px;font-weight:600;transform:translateX(-50%) translateY(60px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.zr{display:flex;align-items:center;gap:10px;background:#16161f;border-radius:8px;padding:8px 12px}
+.zb{width:32px;height:32px;border-radius:8px;border:none;background:#0e0e16;color:#8a869a;cursor:pointer;font:600 18px 'JetBrains Mono',monospace}
+.zv{flex:1;text-align:center;font:600 14px 'JetBrains Mono',monospace}
+.zrb{font-size:11px;color:#3e3c4e;cursor:pointer;background:0;border:0;padding:4px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.bpv{margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid #252530}
+.bpv img{width:100%;height:80px;object-fit:cover;display:block}
+.bph{height:80px;display:flex;align-items:center;justify-content:center;color:#3e3c4e;font-size:12px;background:#16161f}
+.bbs{display:flex;gap:8px;margin-top:6px}
+.bb{flex:1;padding:6px;border:1px solid #252530;border-radius:8px;background:#16161f;color:#8a869a;font-size:12px;cursor:pointer;text-align:center}
+.bb.up{border-color:#e8b84b;color:#e8b84b}
+.bb.rs{border-color:#e84057;color:#e84057}
+#bfi{display:none}
+.fg{margin-bottom:10px}
+.fg>label{display:block;font-size:12px;color:#8a869a;margin-bottom:4px}
+.srw{display:flex;align-items:center;gap:8px}
+.srw input[type=range]{flex:1;accent-color:#e8b84b}
+.sv2{font:11px 'JetBrains Mono',monospace;color:#8a869a;min-width:36px;text-align:right}
+.cw{display:flex;gap:3px;flex-wrap:wrap}
+.cs2{width:20px;height:20px;border-radius:3px;cursor:pointer;border:2px solid transparent;transition:transform .1s}
+.cs2:hover{transform:scale(1.2)}
+.cs2.on{border-color:#fff}
+.cdv{height:1px;background:#252530;margin:4px 0}
+.cw2{display:flex;align-items:center;gap:6px;font-size:10px;color:#3e3c4e}
+.cw2 input[type=color]{width:32px;height:26px;border:1px solid #252530;border-radius:6px;background:0;cursor:pointer;padding:2px}
+.cw2 input[type=color]::-webkit-color-swatch-wrapper{padding:1px}
+.cw2 input[type=color]::-webkit-color-swatch{border:none;border-radius:3px}
+.cds{margin-top:8px;padding:8px;background:#08080e;border-radius:8px;border:1px solid #252530;font-size:10px;color:#8a869a}
+.cds strong{color:#eae6de}
+</style>
+</head>
+<body>
+<div class="w">
+<div id="emp"><div class="card" style="border:none;background:0"><div class="es"><div class="ei">¥</div><h2>日薪时钟</h2><p>设置薪资和工作时间<br>实时查看今日收益</p><button class="gbtn" id="bS">开始设置</button></div></div></div>
+<div class="card" id="mc" style="display:none">
+<div class="hdr"><div><span class="badge" id="bdg"><span id="stx">--</span></span><span id="wkT" style="display:none;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600"></span></div><button class="sbtn" id="bT">⚙</button></div>
+<div class="cs"><div class="ck"><span id="cH">00</span><span class="c">:</span><span id="cM">00</span><span class="sc">:<span id="cS">00</span></span></div><div class="dt" id="dL"></div></div>
+<div class="dv"></div>
+<div class="ew"><div class="eb p"><div class="el">今日已赚</div><div class="ev lg"><span class="u">¥</span><span id="tE">0.00</span></div></div><div class="eb"><div class="el">本月累计</div><div class="ev"><span class="u">¥</span><span id="mE">0.00</span></div></div></div>
+<div class="pw"><div class="ph"><span class="lb">今日工作进度</span><span class="pv" id="pp">0%</span></div><div class="pt"><div class="pf" id="pfl"></div></div></div>
+<div class="ig"><div class="ib"><div class="v" id="iH">--</div><div class="l">今日工时</div></div><div class="ib"><div class="v" id="iDS">--</div><div class="l">日薪</div></div><div class="ib"><div class="v" id="iR">--</div><div class="l">时薪</div></div></div>
+<div class="ig ig2" style="margin-top:6px"><div class="ib"><div class="v" id="iT">--</div><div class="l">距下班</div></div><div class="ib"><div class="v" id="iP">--</div><div class="l">距发薪</div></div></div>
+<div class="rm" id="rm"></div><div class="ft" id="fi"></div>
+</div>
+</div>
+<div class="ov" id="ov"></div>
+<div class="sh" id="sh">
+<div class="shh"></div>
+<div class="sht"><h3>设置</h3><button class="xb" id="bC">×</button></div>
+<div class="shb">
+<div class="fs"><div class="fst">显示大小</div><div class="zr"><button class="zb" id="zO">−</button><span class="zv" id="zV">100%</span><button class="zb" id="zI">+</button><button class="zrb" id="zR">重置</button></div></div>
+<div class="fs"><div class="fst">自定义背景</div><div class="bpv"><div class="bph" id="bpP">当前使用默认背景</div><img id="bpI" style="display:none"></div><div class="bbs"><label class="bb up" id="bpU">选择图片</label><button class="bb rs" id="bpRs">恢复默认</button></div><input type="file" id="bfi" accept="image/*"></div>
+<div class="fs"><div class="fst">外观设置</div>
+<div class="fg"><label>文字颜色</label><div class="cw" id="tcR"></div><div class="cdv"></div><div class="cw2"><span>自定义：</span><input type="color" id="tcI" value="#eae6de"></div></div>
+<div class="fg"><label>今日已赚颜色</label><div class="cw" id="ecR"></div><div class="cdv"></div><div class="cw2"><span>自定义：</span><input type="color" id="ecI" value="#e8b84b"></div></div>
+<div class="fg"><label>卡片背景透明度</label><div class="srw"><input type="range" id="fCO" min="0" max="100" value="100"><span class="sv2" id="fCOv">100%</span></div></div>
+<div class="fg"><label>边框透明度</label><div class="srw"><input type="range" id="fBO" min="0" max="100" value="6"><span class="sv2" id="fBOv">6%</span></div></div>
+</div>
+<div class="fs"><div class="fst">薪资</div><div class="ff"><label>月薪（税前）</label><input type="number" id="fS" placeholder="如 8000"></div></div>
+<div class="fs"><div class="fst">薪资算法</div><div class="og" id="cmG"><button class="op on" data-v="actual">实际排班</button><button class="op" data-v="legal">法定标准</button></div><div class="cds" id="cmD"></div></div>
+<div class="fs"><div class="fst">工作时间</div><div class="fr"><div class="ff"><label>上班</label><input type="time" id="fWS" value="09:00"></div><div class="ff"><label>下班</label><input type="time" id="fWE" value="18:00"></div></div><div class="fr"><div class="ff"><label>午休开始</label><input type="time" id="fLS" value="12:00"></div><div class="ff"><label>午休结束</label><input type="time" id="fLE" value="13:00"></div></div></div>
+<div class="fs"><div class="fst">休息模式</div><div class="og" id="rmG"><button class="op on" data-v="double">双休</button><button class="op" data-v="single">单休</button><button class="op" data-v="alternate">大小周</button></div><div class="sr2" id="sRW"><div class="og" id="rdG" style="margin-top:6px"><button class="op" data-v="saturday">休息周六</button><button class="op on" data-v="sunday">休息周日</button></div></div><div class="sr2" id="aRW"><div style="margin-top:6px"><div style="font-size:11px;color:#8a869a;margin-bottom:6px">本周类型</div><div class="og" id="awG"><button class="op on" data-v="big">大周</button><button class="op" data-v="small">小周</button></div><div class="fh">大周休1天|小周休2天</div></div></div></div>
+<div class="fs"><div class="fst">发薪日</div><div class="ff"><label>每月几号发薪</label><input type="number" id="fPD" value="10" min="1" max="28" style="width:90px"></div></div>
+</div><div class="sft"><button class="svb" id="bSv">保存设置</button></div></div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
