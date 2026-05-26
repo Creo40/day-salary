@@ -6,13 +6,13 @@
 <title>日薪时钟</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--cop:0.85;--bop:0.06;--earn:#e8b84b}
+:root{--iop:0.85;--bop:0.06;--earn:#e8b84b}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .w{width:420px}
-.card{background:rgba(14,14,22,var(--cop));border:1px solid rgba(255,255,255,var(--bop));border-radius:20px;padding:24px 20px;position:relative;overflow:hidden;transition:background .3s,border-color .3s}
+.card{background:rgba(14,14,22,0.15);border:1px solid rgba(255,255,255,var(--bop));border-radius:20px;padding:24px 20px;position:relative;overflow:hidden;transition:background .3s,border-color .3s}
 .card.hb{background-size:cover;background-position:center}
-.card.hb::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);border-radius:20px;pointer-events:none;z-index:0}
+.card.hb::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.2);border-radius:20px;pointer-events:none;z-index:0}
 .card.hb>*{position:relative;z-index:1}
 .es{text-align:center;padding:40px 16px}
 .ei{width:60px;height:60px;border-radius:16px;margin:0 auto 14px;background:rgba(232,184,75,.08);display:flex;align-items:center;justify-content:center;font:700 26px 'JetBrains Mono',monospace;color:#e8b84b}
@@ -31,7 +31,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 .dt{font-size:12px;color:#8a869a;margin-top:8px}
 .dv{height:1px;background:rgba(255,255,255,.06);margin:0 0 16px}
 .ew{display:flex;gap:8px;margin-bottom:14px}
-.eb{flex:1;background:rgba(255,255,255,.05);border-radius:12px;padding:14px 12px}
+.eb{flex:1;background:rgba(20,20,30,var(--iop));border-radius:12px;padding:14px 12px;transition:background .3s}
 .eb.p{background:linear-gradient(135deg,rgba(232,184,75,.08),rgba(232,184,75,.02))}
 .el{font-size:10px;color:#8a869a;margin-bottom:6px}
 .ev{font:700 18px 'JetBrains Mono',monospace;line-height:1}
@@ -45,7 +45,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 .pf{height:100%;border-radius:2px;background:linear-gradient(90deg,rgba(232,184,75,.35),#e8b84b);transition:width .5s}
 .ig{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}
 .ig2{grid-template-columns:repeat(2,1fr)}
-.ib{background:rgba(255,255,255,.05);border-radius:8px;padding:10px 4px;text-align:center}
+.ib{background:rgba(20,20,30,var(--iop));border-radius:8px;padding:10px 4px;text-align:center;transition:background .3s}
 .ib .v{font:600 13px 'JetBrains Mono',monospace;margin-bottom:2px}
 .ib .l{font-size:9px;color:#8a869a}
 .rm{text-align:center;padding:10px 0;font-size:13px;color:#8a869a;display:none}
