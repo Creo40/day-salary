@@ -6,7 +6,7 @@
 <title>日薪时钟</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--iop:0;--bop:0.06;--earn:#e8b84b}
+:root{--iop:0.5;--bop:0.06;--earn:#e8b84b}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .w{width:420px}
@@ -31,7 +31,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 .dt{font-size:12px;color:#8a869a;margin-top:8px}
 .dv{height:1px;background:rgba(255,255,255,.06);margin:0 0 16px}
 .ew{display:flex;gap:8px;margin-bottom:14px}
-.eb,.eb.p{flex:1;background:rgba(20,20,30,var(--iop));border-radius:12px;padding:14px 12px;transition:background .3s}
+.eb{flex:1;background:rgba(14,14,22,var(--iop));border-radius:12px;padding:14px 12px;transition:background .3s}
 .el{font-size:10px;color:#8a869a;margin-bottom:6px}
 .ev{font:700 18px 'JetBrains Mono',monospace;line-height:1}
 .ev.lg{font-size:24px;color:var(--earn)}
@@ -44,7 +44,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 .pf{height:100%;border-radius:2px;background:linear-gradient(90deg,rgba(232,184,75,.35),#e8b84b);transition:width .5s}
 .ig{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}
 .ig2{grid-template-columns:repeat(2,1fr)}
-.ib{background:rgba(20,20,30,var(--iop));border-radius:8px;padding:10px 4px;text-align:center;transition:background .3s}
+.ib{background:rgba(14,14,22,var(--iop));border-radius:8px;padding:10px 4px;text-align:center;transition:background .3s}
 .ib .v{font:600 13px 'JetBrains Mono',monospace;margin-bottom:2px}
 .ib .l{font-size:9px;color:#8a869a}
 .rm{text-align:center;padding:10px 0;font-size:13px;color:#8a869a;display:none}
@@ -115,7 +115,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 <div class="hdr"><div><span class="badge" id="bdg"><span id="stx">--</span></span><span id="wkT" style="display:none;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600"></span></div><button class="sbtn" id="bT">⚙</button></div>
 <div class="csc"><div class="ck"><span id="cH">00</span><span class="c">:</span><span id="cM">00</span><span class="sc">:<span id="cS">00</span></span></div><div class="dt" id="dL"></div></div>
 <div class="dv"></div>
-<div class="ew"><div class="eb p"><div class="el">今日已赚</div><div class="ev lg"><span class="u">¥</span><span id="tE">0.00</span></div></div><div class="eb"><div class="el">本月累计</div><div class="ev"><span class="u">¥</span><span id="mE">0.00</span></div></div></div>
+<div class="ew"><div class="eb"><div class="el">今日已赚</div><div class="ev lg"><span class="u">¥</span><span id="tE">0.00</span></div></div><div class="eb"><div class="el">本月累计</div><div class="ev"><span class="u">¥</span><span id="mE">0.00</span></div></div></div>
 <div class="pw"><div class="ph"><span class="lb">今日工作进度</span><span class="pv" id="pp">0%</span></div><div class="pt"><div class="pf" id="pfl"></div></div></div>
 <div class="ig"><div class="ib"><div class="v" id="iH">--</div><div class="l">今日工时</div></div><div class="ib"><div class="v" id="iDS">--</div><div class="l">日薪</div></div><div class="ib"><div class="v" id="iR">--</div><div class="l">时薪</div></div></div>
 <div class="ig ig2" style="margin-top:6px"><div class="ib"><div class="v" id="iT">--</div><div class="l">距下班</div></div><div class="ib"><div class="v" id="iP">--</div><div class="l">距发薪</div></div></div>
@@ -126,7 +126,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 <div class="shb">
 <div class="fs"><div class="fst">显示大小</div><div class="zr"><button class="zb" id="zO">−</button><span class="zv" id="zV">100%</span><button class="zb" id="zI">+</button><button class="zrb" id="zR">重置</button></div></div>
 <div class="fs"><div class="fst">自定义背景</div><div class="bpv"><div class="bph" id="bpP">当前使用默认背景</div><img id="bpI" style="display:none"></div><div class="bbs"><label class="bb up" id="bpU">选择图片</label><button class="bb rs" id="bpRs">恢复默认</button></div><input type="file" id="bfi" accept="image/*"></div>
-<div class="fs"><div class="fst">外观设置</div><div class="fg"><label>文字颜色</label><div class="cw" id="tcR"></div><div class="cdv"></div><div class="cw2"><span>自定义：</span><input type="color" id="tcI" value="#eae6de"></div></div><div class="fg"><label>今日已赚颜色</label><div class="cw" id="ecR"></div><div class="cdv"></div><div class="cw2"><span>自定义：</span><input type="color" id="ecI" value="#e8b84b"></div></div><div class="fg"><label>卡片背景透明度</label><div class="srw"><input type="range" id="fCO" min="0" max="100" value="0"><span class="sv2" id="fCOv">0%</span></div></div><div class="fg"><label>边框透明度</label><div class="srw"><input type="range" id="fBO" min="0" max="100" value="6"><span class="sv2" id="fBOv">6%</span></div></div></div>
+<div class="fs"><div class="fst">外观设置</div><div class="fg"><label>文字颜色</label><div class="cw" id="tcR"></div><div class="cdv"></div><div class="cw2"><span>自定义：</span><input type="color" id="tcI" value="#eae6de"></div></div><div class="fg"><label>今日已赚颜色</label><div class="cw" id="ecR"></div><div class="cdv"></div><div class="cw2"><span>自定义：</span><input type="color" id="ecI" value="#e8b84b"></div></div><div class="fg"><label>卡片背景透明度</label><div class="srw"><input type="range" id="fCO" min="0" max="100" value="50"><span class="sv2" id="fCOv">50%</span></div></div><div class="fg"><label>边框透明度</label><div class="srw"><input type="range" id="fBO" min="0" max="100" value="6"><span class="sv2" id="fBOv">6%</span></div></div></div>
 <div class="fs"><div class="fst">薪资</div><div class="ff"><label>月薪（税前）</label><input type="number" id="fS" placeholder="如 8000"></div></div>
 <div class="fs"><div class="fst">薪资算法</div><div class="og" id="cmG"><button class="op on" data-v="actual">实际排班</button><button class="op" data-v="legal">法定标准</button></div><div class="cds" id="cmD"></div></div>
 <div class="fs"><div class="fst">工作时间</div><div class="fr"><div class="ff"><label>上班</label><input type="time" id="fWS" value="09:00"></div><div class="ff"><label>下班</label><input type="time" id="fWE" value="18:00"></div></div><div class="fr"><div class="ff"><label>午休开始</label><input type="time" id="fLS" value="12:00"></div><div class="ff"><label>午休结束</label><input type="time" id="fLE" value="13:00"></div></div></div>
