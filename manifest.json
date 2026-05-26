@@ -1,0 +1,15 @@
+{
+  "name": "日薪时钟",
+  "short_name": "日薪时钟",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#08080e",
+  "theme_color": "#08080e",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
