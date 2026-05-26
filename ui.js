@@ -12,7 +12,7 @@ $('mc').style.color=tcVal;
 $('mc').style.borderColor='rgba(255,255,255,'+(bo/100)+')';
 document.documentElement.style.setProperty('--earn',ecVal);
 var alpha=co/100;
-$('mc').querySelectorAll('.eb).forEach(function(el){el.style.background='rgba(20,20,30,'+alpha+')'});
+$('mc').querySelectorAll('.eb').forEach(function(el){el.style.background='rgba(20,20,30,'+alpha+')'});
 $('mc').querySelectorAll('.ib').forEach(function(el){el.style.background='rgba(20,20,30,'+alpha+')'});
 $('fCOv').textContent=co+'%';
 $('fBOv').textContent=bo+'%';
