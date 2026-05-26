@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
 <title>日薪时钟</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -106,6 +107,7 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 .cw2 input[type=color]::-webkit-color-swatch{border:none;border-radius:3px}
 .cds{margin-top:8px;padding:8px;background:#08080e;border-radius:8px;border:1px solid #252530;font-size:10px;color:#8a869a}
 .cds strong{color:#eae6de}
+<meta name="theme-color" content="#08080e">
 </style>
 </head>
 <body>
@@ -135,5 +137,6 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 </div><div class="sft"><button class="svb" id="bSv">保存设置</button></div></div>
 <div class="toast" id="toast"></div>
 <script src="script.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
 </body>
 </html>
