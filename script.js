@@ -1,27 +1,80 @@
-window._WK=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-window._DF={salary:8000,work_start:'09:00',work_end:'18:00',lunch_start:'12:00',lunch_end:'13:00',rest_mode:'double',single_rest_day:'sunday',ref_monday_ts:0,ref_is_big:true,pay_day:10,calc_mode:'actual',text_color:'#eae6de',earn_color:'#e8b84b',card_op:85,bord_op:6};
-window._cfg=null;window._zl=100;window._tc='#eae6de';window._ec='#e8b84b';
-var sz=localStorage.getItem('dayW3z');if(sz)window._zl=parseInt(sz,10);aZ();
-mkP('tcR','tcI',{v:window._tc});mkP('ecR','ecI',{v:window._ec});
-window._cfg=lCfg();
-if(window._cfg){if(!window._cfg.ref_monday_ts)window._cfg.ref_monday_ts=gM(new Date).getTime();if(window._cfg.ref_is_big==null)window._cfg.ref_is_big=true;if(!window._cfg.calc_mode)window._cfg.calc_mode='actual';if(!window._cfg.text_color)window._cfg.text_color='#eae6de';if(!window._cfg.earn_color)window._cfg.earn_color='#e8b84b';if(window._cfg.card_op==null)window._cfg.card_op=85;if(window._cfg.bord_op==null)window._cfg.bord_op=6;apL(window._cfg);document.getElementById('emp').style.display='none';document.getElementById('mc').style.display='block';lBg()}
+var WK=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+var DF={salary:8000,work_start:'09:00',work_end:'18:00',lunch_start:'12:00',lunch_end:'13:00',rest_mode:'double',single_rest_day:'sunday',ref_monday_ts:0,ref_is_big:true,pay_day:10,calc_mode:'actual',text_color:'#eae6de',earn_color:'#e8b84b',card_op:85,bord_op:6};
+var G=null,ZL=100,TC='#eae6de',EC='#e8b84b';
+function render(){
+if(!G)return;
+var n=new Date,y=n.getFullYear(),m=n.getMonth(),d=n.getDate();
+var hh=n.getHours(),mi=n.getMinutes(),ss=n.getSeconds();
+$('cH').textContent=(hh<10?'0':'')+hh;
+$('cM').textContent=(mi<10?'0':'')+mi;
+$('cS').textContent=(ss<10?'0':'')+ss;
+$('dL').textContent=y+'年'+(m+1)+'月'+d+'日 '+WK[n.getDay()];
+var st=gSt(G);
+var clr={working:'rgba(45,214,122,.1)',waiting:'rgba(91,141,239,.1)',lunch:'rgba(232,184,75,.1)',rest:'rgba(140,100,200,.1)'}[st]||'rgba(255,255,255,.04)';
+var fc={working:'#2dd67a',waiting:'#5b8def',lunch:'#e8b84b',rest:'#a080d0'}[st]||'#8a869a';
+var tx={working:'工作中',waiting:'等待上班',lunch:'午休中',rest:'今日休息',off:'已下班'}[st];
+$('bdg').style.background=clr;$('bdg').style.color=fc;$('stx').textContent='● '+tx;
+if(G.rest_mode==='alternate'){var big=iB(n,new Date(G.ref_monday_ts),G.ref_is_big);$('wkT').style.display='';$('wkT').textContent=big?'大周':'小周';$('wkT').style.background=big?'rgba(232,184,75,.1)':'rgba(91,141,239,.1)';$('wkT').style.color=big?'#e8b84b':'#5b8def'}
+else $('wkT').style.display='none';
+var ds=gDS(G),hr=gHR(G),te=gTE(G),iw=iWD(y,m,d,G);
+$('tE').textContent=te.toFixed(2);
+var wd=cWD(y,m,G),dh=gDH(G),pa=0;
+for(var dd=1;dd<d;dd++)if(iWD(y,m,dd,G))pa++;
+$('mE').textContent=(pa*ds+te).toFixed(2);
+var pc=dh>0?Math.min(100,gEH(G)/dh*100):0;
+if(!iw)pc=st==='off'?100:0;
+$('pp').textContent=Math.round(pc)+'%';$('pfl').style.width=pc+'%';
+$('iH').textContent=gDHT(G);
+if(iw||G.calc_mode==='legal'){$('iDS').textContent='¥'+ds.toFixed(1);$('iR').textContent='¥'+hr.toFixed(1)}
+else{$('iDS').textContent='¥0';$('iR').textContent='¥0'}
+var ns=hh*3600+mi*60+ss;
+if(st==='off'||st==='rest'){$('iT').textContent=st==='off'?'已下班':'--'}
+else{var tg=st==='waiting'?toM(G.work_start)*60:toM(G.work_end)*60,df=Math.max(0,tg-ns);
+$('iT').textContent=(df<10?'0':'')+Math.floor(df/3600)+':'+((df%3600)/60<10?'0':'')+Math.floor((df%3600)/60)}
+var pd=G.pay_day,md=new Date(y,m+1,0).getDate();
+if(d===pd)$('iP').textContent='今天';
+else if(d<pd)$('iP').textContent=(pd-d)+'天';
+else $('iP').textContent=(md-d+pd)+'天';
+var re=$('rm');
+if(st==='off'){re.style.display='block';re.innerHTML='<div>上班辛苦了，今日赚取</div><div class="ra">¥'+te.toFixed(2)+'</div>'}
+else if(st==='rest'){re.style.display='block';re.innerHTML=G.calc_mode==='legal'?'<div>放假快乐！今日赚取</div><div class="ra">¥'+te.toFixed(2)+'</div>':'<div>放假快乐！</div>'}
+else re.style.display='none';
+$('fi').textContent='本月'+wd+'个工作日·已过'+pa+'天·剩余'+Math.max(0,wd-pa-(iw?1:0))+'天';
+}
+var sz=localStorage.getItem('dayW3z');if(sz)ZL=parseInt(sz,10);aZ();
+mkP('tcR','tcI',{v:TC});mkP('ecR','ecI',{v:EC});
+G=lCfg();
+if(G){if(!G.ref_monday_ts)G.ref_monday_ts=gM(new Date).getTime();if(G.ref_is_big==null)G.ref_is_big=true;if(!G.calc_mode)G.calc_mode='actual';if(!G.text_color)G.text_color='#eae6de';if(!G.earn_color)G.earn_color='#e8b84b';if(G.card_op==null)G.card_op=85;if(G.bord_op==null)G.bord_op=6;apL(G);$('emp').style.display='none';$('mc').style.display='block';lBg()}
 render();setInterval(render,500);
-document.getElementById('bS').onclick=openS;
-document.getElementById('bT').onclick=openS;
-document.getElementById('bC').onclick=closeS;
-document.getElementById('ov').onclick=closeS;
-document.getElementById('zI').onclick=function(){if(window._zl<300){window._zl+=10;aZ()}};
-document.getElementById('zO').onclick=function(){if(window._zl>30){window._zl-=10;aZ()}};
-document.getElementById('zR').onclick=function(){window._zl=100;aZ()};
-document.getElementById('fCO').oninput=pvL;
-document.getElementById('fBO').oninput=pvL;
-document.getElementById('bpU').onclick=function(){document.getElementById('bfi').click()};
-document.getElementById('bfi').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){localStorage.setItem('dayW3bg',ev.target.result);lBg();toast('背景已更换')};r.readAsDataURL(f)};
-document.getElementById('bpRs').onclick=function(){localStorage.removeItem('dayW3bg');lBg();toast('已恢复默认')};
+$('bS').onclick=openS;$('bT').onclick=openS;$('bC').onclick=closeS;$('ov').onclick=closeS;
+$('zI').onclick=function(){if(ZL<300){ZL+=10;aZ()}};$('zO').onclick=function(){if(ZL>30){ZL-=10;aZ()}};$('zR').onclick=function(){ZL=100;aZ()};
+$('fCO').oninput=pvL;$('fBO').oninput=pvL;
+$('bpU').onclick=function(){$('bfi').click()};
+$('bfi').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){localStorage.setItem('dayW3bg',ev.target.result);lBg();toast('背景已更换')};r.readAsDataURL(f)};
+$('bpRs').onclick=function(){localStorage.removeItem('dayW3bg');lBg();toast('已恢复默认')};
 document.querySelectorAll('#rmG .op').forEach(function(b){b.onclick=function(){sRM(this.getAttribute('data-v'))}});
 document.querySelectorAll('#rdG .op').forEach(function(b){b.onclick=function(){sRD(this.getAttribute('data-v'))}});
 document.querySelectorAll('#awG .op').forEach(function(b){b.onclick=function(){sAW(this.getAttribute('data-v'))}});
 document.querySelectorAll('#cmG .op').forEach(function(b){b.onclick=function(){sCM(this.getAttribute('data-v'))}});
-document.getElementById('bSv').onclick=function(){var salary=parseInt(document.getElementById('fS').value,10);if(!salary||salary<=0){alert('请输入有效月薪');return}var ws=document.getElementById('fWS').value,we=document.getElementById('fWE').value,ls=document.getElementById('fLS').value,le=document.getElementById('fLE').value;if(!ws||!we||!ls||!le){alert('请填写完整时间');return}if(toM(we)<=toM(ws)){alert('下班必须晚于上班');return}if(toM(le)<=toM(ls)){alert('午休结束必须晚于开始');return}if(!(toM(ws)<=toM(ls)&&toM(le)<=toM(we))){alert('午休需在上下班时间内');return}var pd=parseInt(document.getElementById('fPD').value,10);if(!pd||pd<1||pd>28){alert('发薪日请输入1-28');return}var rm=document.querySelector('#rmG .op.on'),rd=document.querySelector('#rdG .op.on'),aw=document.querySelector('#awG .op.on'),cm=document.querySelector('#cmG .op.on');window._cfg={salary:salary,work_start:ws,work_end:we,lunch_start:ls,lunch_end:le,rest_mode:rm?rm.getAttribute('data-v'):'double',single_rest_day:rd?rd.getAttribute('data-v'):'sunday',ref_monday_ts:gM(new Date).getTime(),ref_is_big:aw?aw.getAttribute('data-v')==='big':true,pay_day:pd,calc_mode:cm?cm.getAttribute('data-v'):'actual',text_color:window._tc,earn_color:window._ec,card_op:parseInt(document.getElementById('fCO').value),bord_op:parseInt(document.getElementById('fBO').value)};sS(window._cfg);apL(window._cfg);closeS();document.getElementById('emp').style.display='none';document.getElementById('mc').style.display='block';toast('设置已保存')};
+$('bSv').onclick=function(){
+var salary=parseInt($('fS').value,10);if(!salary||salary<=0){alert('请输入有效月薪');return}
+var ws=$('fWS').value,we=$('fWE').value,ls=$('fLS').value,le=$('fLE').value;
+if(!ws||!we||!ls||!le){alert('请填写完整时间');return}
+if(toM(we)<=toM(ws)){alert('下班必须晚于上班');return}
+if(toM(le)<=toM(ls)){alert('午休结束必须晚于开始');return}
+if(!(toM(ws)<=toM(ls)&&toM(le)<=toM(we))){alert('午休需在上下班时间内');return}
+var pd=parseInt($('fPD').value,10);if(!pd||pd<1||pd>28){alert('发薪日请输入1-28');return}
+var rm=document.querySelector('#rmG .op.on'),rd=document.querySelector('#rdG .op.on');
+var aw=document.querySelector('#awG .op.on'),cm=document.querySelector('#cmG .op.on');
+G={salary:salary,work_start:ws,work_end:we,lunch_start:ls,lunch_end:le,
+rest_mode:rm?rm.getAttribute('data-v'):'double',
+single_rest_day:rd?rd.getAttribute('data-v'):'sunday',
+ref_monday_ts:gM(new Date).getTime(),
+ref_is_big:aw?aw.getAttribute('data-v')==='big':true,
+pay_day:pd,calc_mode:cm?cm.getAttribute('data-v'):'actual',
+text_color:TC,earn_color:EC,
+card_op:parseInt($('fCO').value),bord_op:parseInt($('fBO').value)};
+sS(G);apL(G);closeS();$('emp').style.display='none';$('mc').style.display='block';toast('设置已保存');
+};
 document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
 window.addEventListener('focus',function(){setTimeout(render,50)});
