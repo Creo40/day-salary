@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#08080e">
+<link rel="manifest" href="manifest.json">
 <title>日薪时钟</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -63,12 +65,12 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 .fst{font-size:10px;font-weight:600;color:#3e3c4e;letter-spacing:1.5px;margin-bottom:8px}
 .ff label{display:block;font-size:11px;color:#8a869a;margin-bottom:4px}
 .ff input{width:100%;background:#16161f;border:1px solid #252530;border-radius:8px;padding:9px 12px;color:#eae6de;font:14px 'JetBrains Mono',monospace;outline:none}
-.ff input:focus{border-color:#e;cursor:pointer;transition:all .15s}
-8b84b}
+.ff input:focus{border-color:#e8b84b}
 .fr{display:flex;gap:8px;margin-bottom:8px}
 .ff{flex:1}
 .og{display:flex;background:#16161f;border-radius:8px;padding:2px;gap:2px}
-.op{flex:1;padding:8px;border:none;border-radius:6px;background:0;color:#8a869a;font-size:12px.op.on{background:#e8b84b;color:#08080e;font-weight:600}
+.op{flex:1;padding:8px;border:none;border-radius:6px;background:0;color:#8a869a;font-size:12px;cursor:pointer;transition:all .15s}
+.op.on{background:#e8b84b;color:#08080e;font-weight:600}
 .op:active{transform:scale(.96)}
 .sr2{margin-top:8px;overflow:hidden;max-height:0;opacity:0;transition:all .25s}
 .sr2.show{max-height:100px;opacity:1}
@@ -130,10 +132,11 @@ body{background:#08080e;color:#eae6de;font-family:'Noto Sans SC',sans-serif;heig
 <div class="fs"><div class="fst">薪资</div><div class="ff"><label>月薪（税前）</label><input type="number" id="fS" placeholder="如 8000"></div></div>
 <div class="fs"><div class="fst">薪资算法</div><div class="og" id="cmG"><button class="op on" data-v="actual">实际排班</button><button class="op" data-v="legal">法定标准</button></div><div class="cds" id="cmD"></div></div>
 <div class="fs"><div class="fst">工作时间</div><div class="fr"><div class="ff"><label>上班</label><input type="time" id="fWS" value="09:00"></div><div class="ff"><label>下班</label><input type="time" id="fWE" value="18:00"></div></div><div class="fr"><div class="ff"><label>午休开始</label><input type="time" id="fLS" value="12:00"></div><div class="ff"><label>午休结束</label><input type="time" id="fLE" value="13:00"></div></div></div>
-<div class="fs"><div class="fst">休息模式</div><div class="og" id="rmG"><button class="op on" data-v="double">双休</button><button class="op" data-v="single">单休</button><button class="op" data-v="alternate">大小周</button></div><div class="sr2" id="sRW"><div class="og" id="rdG" style="margin-top:6px"><button class="op" data-v="saturday">休息周六</button><button class="op on" data-v="sunday">休息周日</button></div></div><div class="sr2" id="aRW"><div style="margin-top:6px"><div style="font-size:11px;color:#8a869a;margin-bottom:6px">本周类型</div><div class="og" id="awG"><button class="op on" data-v="big">大周</button><button class="op" data-v="small">小周</button></div><div class="fh">大周休1天|小周休2天</div></div></div></div>
-<div class="fs"><div class="fst">发薪日</div><div class="ff"><label>每月几号发薪</label><input type="number" id="fPD" value="10" min="1" max="28" style="width:90px"></div></div>
+<div class="fs"><div class="fst">休息模式</div><div class="og" id="rmG"><button class="op on" data-v="double">双休</button><button class="op" data-v="single">单休</button><button class="op" data-v="alternate">大小周</sRW"><div class="og" id="rdG" style="margin-top:6px"><button class="op" data-v="saturday">休息周六</button><button class="op on" data-v="sunday">休息周日</button></div></div><div class="sr2" id="aRW"><div style="margin-top:6px"><div style="font-size:11px;color:#8a869a;margin-bottom:6px">本周类型</div><div class="og" id="awG"><button class="op on" data-v="big">大周</button><button class="op" data-v="small">小周</button></div><div class="fh">大周休1天|小周休2天</div></div></div></div>
+<div class="fs"><div class="fst">发薪日</div><div class="ff"><label>每月几号发薪</label><input type="number" id="fPD" value="10" min="1" max="2button></div><div class="sr2" id="8" style="width:90px"></div></div>
 </div><div class="sft"><button class="svb" id="bSv">保存设置</button></div></div>
 <div class="toast" id="toast"></div>
 <script src="script.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
 </body>
 </html>
